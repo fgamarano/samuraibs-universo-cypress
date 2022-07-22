@@ -1,0 +1,16 @@
+{
+  "name": "samuraibs-tests",
+  "version": "1.0.0",
+  "description": "Projeto de tester de aceitação de ponta a ponta Cypress",
+  "main": "index.js",
+  "author": "Fernanda Gamarano",
+  "license": "MIT",
+  "dependencies": {
+    "cypress": "^9.7.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
+    "pd": "^0.8.1",
+    "pg": "^8.7.3"
+  }
+}

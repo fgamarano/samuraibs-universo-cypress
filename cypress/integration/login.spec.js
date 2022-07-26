@@ -13,7 +13,7 @@ describe('login', function () {
         }
 
         before(function () {
-            cy.createUser(user)
+            cy.postUser(user)
         })
 
         it('Deve logar com sucesso', function () {

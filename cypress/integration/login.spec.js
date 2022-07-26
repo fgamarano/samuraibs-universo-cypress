@@ -1,5 +1,6 @@
 import loginPage from '../support/pages/login'
 import dashPage from '../support/pages/dash'
+import login from '../support/pages/login'
 
 describe('login', function () {
 
@@ -25,7 +26,7 @@ describe('login', function () {
         })
     })
 
-    context.only('Quando o usuario é bom, mas a senha é invalida', function () {
+    context('Quando o usuario é bom, mas a senha é invalida', function () {
 
         let user = {
             name: 'Camila kamura',
@@ -53,6 +54,31 @@ describe('login', function () {
             const message = 'Ocorreu um erro ao fazer login, verifique suas credenciais.'
 
             loginPage.toast.shouldHaveText(message)
+        })
+    })
+
+    context.only('Quando o formato do email é inválido', function (){
+
+        const emails = [
+            'papito.com.br',
+            'yahoo.com',
+            '@gmail.com',
+            '1111'
+        ]
+
+        before(function(){
+            loginPage.go()
+            // para acessar a pagina uma unica vez para todos os tests
+        })
+
+        emails.forEach (function (email){
+            it('Não deve logar com o email: ' + email, function (){
+                const user = {email: email, password: 'pdd123'}
+
+                loginPage.form(user)
+                loginPage.submit()
+                loginPage.alertHaveText('Informe um email válido')
+            })
         })
     })
 })

@@ -12,11 +12,19 @@ class LoginPage {
     }
 
     form(user) {
-        cy.get(el.email).type(user.email)
-        cy.get(el.password).type(user.password)
+        cy.get(el.email)
+            .clear().type(user.email)
+        cy.get(el.password)
+            .clear().type(user.password)
     }
+    // o clear garante que o espaço para preenchimento vai está em branco
     submit() {
         cy.contains(el.signIn).click()
+    }
+
+    alertHaveText(expectdText) {
+        cy.contains(el.alertError, expectdText)
+            .should('be.visible')
     }
 }
 

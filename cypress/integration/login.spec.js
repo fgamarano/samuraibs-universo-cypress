@@ -24,4 +24,35 @@ describe('login', function () {
             dashPage.header.userLoggedIn(user.name)
         })
     })
+
+    context.only('Quando o usuario é bom, mas a senha é invalida', function () {
+
+        let user = {
+            name: 'Camila kamura',
+            email: "kamura@samuraibs.com",
+            password: 'pwd123',
+            is_provider: true
+        }
+
+        // const é imutavel
+        //let é uma variavel que eu consigo alterar
+
+        before(function () {
+            cy.postUser(user).then(function () {
+                user.password = 'abc123'
+            })
+            // é usado o then, para alterar a senha, pois primeiro o usuario é cadastrado
+            // e após o cadastro a senha é alterada.
+        })
+
+        it('Deve notificar erro de credenciais', function () {
+            loginPage.go()
+            loginPage.form(user)
+            loginPage.submit()
+
+            const message = 'Ocorreu um erro ao fazer login, verifique suas credenciais.'
+
+            loginPage.toast.shouldHaveText(message)
+        })
+    })
 })

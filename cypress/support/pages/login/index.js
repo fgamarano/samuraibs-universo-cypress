@@ -1,12 +1,17 @@
 import { el } from './elements'
+import toast from '../../components/toast'
 
 class LoginPage {
 
-    go(){
+    constructor() {
+        this.toast = toast
+    }
+
+    go() {
         cy.visit('/')
     }
 
-    form(user){
+    form(user) {
         cy.get(el.email).type(user.email)
         cy.get(el.password).type(user.password)
     }

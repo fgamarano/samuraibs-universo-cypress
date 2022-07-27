@@ -63,7 +63,7 @@ describe('Cadastro', function () {
         })
     })
 
-    context('Quando a senga tem menos de 6 caracteres', function () {
+    context('Quando a senha tem menos de 6 caracteres', function () {
 
         const passwords = ['1', '2a', '3ab', '4abc', '5abcz']
 

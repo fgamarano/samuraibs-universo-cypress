@@ -57,7 +57,7 @@ describe('login', function () {
         })
     })
 
-    context.only('Quando o formato do email é inválido', function (){
+    context('Quando o formato do email é inválido', function (){
 
         const emails = [
             'papito.com.br',
@@ -78,6 +78,24 @@ describe('login', function () {
                 loginPage.form(user)
                 loginPage.submit()
                 loginPage.alertHaveText('Informe um email válido')
+            })
+        })
+    })
+    
+     context('quando não preencho nenhum dos campos', function(){
+        const alertMessages = [
+            'E-mail é obrigatório',
+            'Senha é obrigatória'
+        ]
+
+        before(function(){
+            loginPage.go()
+            loginPage.submit()
+        })
+
+        alertMessages.forEach(function(alert){
+            it('deve exibir ' + alert.toLowerCase(), function(){
+                signupPage.alert.haveText(alert)
             })
         })
     })

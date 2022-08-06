@@ -1,0 +1,23 @@
+{
+  "success": {
+    "name": "Fernanda Gamarano",
+    "email": "fgamarano@samuraibs.com",
+    "password": "q1w2e3"
+  },
+  "email_dup": {
+    "name": "Felipe",
+    "email": "felipe@samuraibs.com",
+    "password": "qwe123",
+    "is_provider": true
+  },
+  "email_inv": {
+    "name": "Camila Ferreira",
+    "email": "caah.yahoo.com",
+    "password": "qwe123"
+  },
+  "short_password": {
+    "name": "Jason Friday",
+    "email": "jason@yahoo.com",
+    "password": null
+  }
+}

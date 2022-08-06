@@ -7,57 +7,52 @@ import signup from '../support/pages/signup'
 import signupPage from '../support/pages/signup'
 
 describe('Cadastro', function () {
+
+    before(function(){
+        cy.fixture('signup').then(function(signup){
+            this.success = signup.success
+            this.email_dup = signup.email_dup
+            this.email_inv = signup.email_inv
+            this.short_password = signup.short_password
+        })
+    })
     context('quando o usuario é novato', function () {
-        const user = {
-            name: 'Fernanda Gamarano',
-            email: 'fgamarano@samuraibs.com',
-            password: 'q1w2e3'
-        }
+    
 
         before(function () {
-            cy.task('removeUser', user.email)
+            cy.task('removeUser', this.success.email)
                 .then(function (result) {
                     console.log(result)
                 })
         })
         it('Deve cadastrar um novo usuario', function () {
             signupPage.go()
-            signupPage.form(user)
+            signupPage.form(this.success)
             signupPage.submit()
             signupPage.toast.shouldHaveText('Agora você se tornou um(a) Samurai, faça seu login para ver seus agendamentos!')
         })
     })
 
     context('quando o email já existe', function () {
-        const user = {
-            name: 'Felipe',
-            email: 'felipe@samuraibs.com',
-            password: 'qwe123',
-            is_provider: true
-        }
 
         before(function () {
-            cy.postUser(user)
+            cy.postUser(this.email_dup)
         })
 
         it('Deve exibir email já cadastrado', function () {
             signupPage.go()
-            signupPage.form(user)
+            signupPage.form(this.email_dup)
             signupPage.submit()
             signupPage.toast.shouldHaveText('Email já cadastrado para outro usuário.')
         })
     })
 
     context('Quando o email é inválido', function () {
-        const user = {
-            name: 'Camila Ferreira',
-            email: 'caah.yahoo.com',
-            password: 'qwe123',
-        }
+
 
         it('Deve exibir mensagem de alerta', function () {
             signupPage.go()
-            signupPage.form(user)
+            signupPage.form(this.email_inv)
             signupPage.submit()
             signupPage.alert.haveText('Informe um email válido')
         })
@@ -72,11 +67,11 @@ describe('Cadastro', function () {
         })
 
         passwords.forEach(function (p) {
-            it('Não deve cadastrar com a senha ' + p, function () {
+            it('Não deve cadastrar com a senha ', function () {
 
-                const user = { name: 'Jason Friday', email: 'jason@yahoo.com', password: p }
+                this.short_password.password = p
 
-                signupPage.form(user)
+                signupPage.form(this.short_password)
                 signupPage.submit()
             })
         })
